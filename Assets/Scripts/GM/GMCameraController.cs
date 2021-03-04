@@ -35,7 +35,7 @@ public class GMCameraController : MonoBehaviour {
     void HandleMouseInput() {
         // Mouse zoom
         if (Input.mouseScrollDelta.y != 0) {
-            newZoom += -Input.mouseScrollDelta.y * zoomAmount;
+            newZoom += Input.mouseScrollDelta.y * zoomAmount;
         }
 
         // Drag scroll
