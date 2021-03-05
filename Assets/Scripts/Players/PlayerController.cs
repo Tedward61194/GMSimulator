@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     [SerializeField] float playerId;
-    [SerializeField] Transform playerCamera;
+    //[SerializeField] Transform cameraTransform;
     [SerializeField] float mouseSensitivity;
     [SerializeField] float walkSpeed;
     [SerializeField][Range(0.0f, 0.05f)] float moveSmoothTime;
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     float cameraPitch = 0.0f;
     float velocityY;
     CharacterController controller;
+    Transform cameraTransform;
 
     Vector2 currentDir = Vector2.zero;
     Vector2 currentDirVelocity = Vector2.zero;
@@ -22,15 +24,23 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        if (PlayerPrefs.GetInt("playerCamera") == playerId) {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+        cameraTransform = GetComponentInChildren<Camera>().transform;
+        if (!isLocalPlayer) {
+            cameraTransform.GetComponent<Camera>().enabled = false;
+            cameraTransform.GetComponent<AudioListener>().enabled = false;
         }
+
+        //if (PlayerPrefs.GetInt("playerCamera") == playerId) {
+        //    Cursor.lockState = CursorLockMode.Locked;
+        //    Cursor.visible = false;
+        //}
+
     }
 
     void Update()
     {
-        if (PlayerPrefs.GetInt("playerCamera") == playerId) {
+        //if (PlayerPrefs.GetInt("playerCamera") == playerId) {
+        if (isLocalPlayer) {
             UpdateMouseLook();
             UpdateMovement();
         }
@@ -41,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
         cameraPitch += -mouseDelta.y * mouseSensitivity;
         cameraPitch = Mathf.Clamp(cameraPitch, -90.0f, 90.0f);
-        playerCamera.localEulerAngles = Vector3.right * cameraPitch;
+        cameraTransform.localEulerAngles = Vector3.right * cameraPitch;
 
         transform.Rotate(Vector3.up * mouseDelta.x * mouseSensitivity);
     }
