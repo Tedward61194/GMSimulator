@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField][Range(0.0f, 0.05f)] float moveSmoothTime;
     [SerializeField] float jumpForce;
     [SerializeField] float gravity;
-    [SerializeField] bool lockCursor = true;
 
     float cameraPitch = 0.0f;
     float velocityY;
@@ -23,7 +22,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        if (lockCursor) {
+        if (PlayerPrefs.GetInt("playerCamera") == playerId) {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }

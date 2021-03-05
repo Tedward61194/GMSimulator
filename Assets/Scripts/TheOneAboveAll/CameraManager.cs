@@ -44,12 +44,16 @@ public class CameraManager : MonoBehaviour
                 gmCameraAudioListener.enabled = true;
                 playerOneCamera.SetActive(false);
                 playerOneCameraAudioListener.enabled = false;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 break;
             case 1:
                 gmCamera.SetActive(false);
                 gmCameraAudioListener.enabled = false;
                 playerOneCamera.SetActive(true);
                 playerOneCameraAudioListener.enabled = true;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 break;
             default:
                 Debug.LogError("Invalid CameraId in CameraManager.changeCamera");

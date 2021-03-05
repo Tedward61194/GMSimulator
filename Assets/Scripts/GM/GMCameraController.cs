@@ -23,6 +23,11 @@ public class GMCameraController : MonoBehaviour {
         newPosition = transform.position;
         newRotation = transform.rotation;
         newZoom = cameraTransform.localPosition;
+
+        if (PlayerPrefs.GetInt("playerCamera") == playerId) {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
     void Update() {
