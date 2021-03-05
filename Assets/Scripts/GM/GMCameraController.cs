@@ -4,32 +4,32 @@ using UnityEngine;
 
 public class GMCameraController : MonoBehaviour {
     public Transform cameraTransform;
+    [SerializeField] int playerId;
+    [SerializeField] float movementSpeed;
+    [SerializeField] float movementTime;
+    [SerializeField] float rotationAmount;
+    [SerializeField] Vector3 zoomAmount;
 
-    public float movementSpeed;
-    public float movementTime;
-    public float rotationAmount;
-    public Vector3 zoomAmount;
+    Vector3 newPosition;
+    Quaternion newRotation;
+    Vector3 newZoom;
 
-    public Vector3 newPosition;
-    public Quaternion newRotation;
-    public Vector3 newZoom;
+    Vector3 dragStartPosition;
+    Vector3 dragCurrentPosition;
+    Vector3 rotateStartPosition;
+    Vector3 rotateCurrentPosition;
 
-    public Vector3 dragStartPosition;
-    public Vector3 dragCurrentPosition;
-    public Vector3 rotateStartPosition;
-    public Vector3 rotateCurrentPosition;
-
-    // Start is called before the first frame update
     void Start() {
         newPosition = transform.position;
         newRotation = transform.rotation;
         newZoom = cameraTransform.localPosition;
     }
 
-    // Update is called once per frame
     void Update() {
-        HandleMovementInput();
-        HandleMouseInput();
+        if (PlayerPrefs.GetInt("playerCamera") == playerId) {
+            HandleMovementInput();
+            HandleMouseInput();
+        }
     }
 
     void HandleMouseInput() {
@@ -42,7 +42,6 @@ public class GMCameraController : MonoBehaviour {
         if (Input.GetMouseButtonDown(0)) {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
             Ray ray = GameObject.FindGameObjectWithTag("GMCamera").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             float entry;
             if (plane.Raycast(ray, out entry)) {
@@ -53,7 +52,6 @@ public class GMCameraController : MonoBehaviour {
         if (Input.GetMouseButton(0)) {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
             Ray ray = GameObject.FindGameObjectWithTag("GMCamera").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             float entry;
             if (plane.Raycast(ray, out entry)) {

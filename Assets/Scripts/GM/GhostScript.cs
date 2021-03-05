@@ -8,13 +8,11 @@ public class GhostScript : MonoBehaviour
     Vector3 movePoint;
     public GameObject prefab;
 
-    // Start is called before the first frame update
     void Start()
     {
         Ray ray = GameObject.FindGameObjectWithTag("GMCamera").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
-        //if (Physics.Raycast(ray, out hit, 50000.0f, (1 << 8))) {
             transform.position = hit.point;
         }
     }
@@ -25,7 +23,6 @@ public class GhostScript : MonoBehaviour
         Ray ray = GameObject.FindGameObjectWithTag("GMCamera").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
-        //if (Physics.Raycast(ray, out hit, 50000.0f, (1 << 8))) {
             transform.position = hit.point;
         }
 
