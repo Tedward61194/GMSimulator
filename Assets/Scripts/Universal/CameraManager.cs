@@ -16,7 +16,7 @@ public class CameraManager : MonoBehaviour
         gmCameraAudioListener = gmCamera.GetComponent<AudioListener>();
         playerOneCameraAudioListener = playerOneCamera.GetComponent<AudioListener>();
 
-        changeCamera(PlayerPrefs.GetInt("playerCamera"));
+        changeCamera(PlayerPrefs.GetInt("playerId"));
     }
     
     void Update() {
@@ -26,7 +26,7 @@ public class CameraManager : MonoBehaviour
     }
 
     void getCamera() {
-        int cameraId = PlayerPrefs.GetInt("playerCamera");
+        int cameraId = PlayerPrefs.GetInt("playerId");
         cameraId++;
         changeCamera(cameraId);
     }
@@ -36,7 +36,7 @@ public class CameraManager : MonoBehaviour
             cameraId = 0;
         }
 
-        PlayerPrefs.SetInt("playerCamera", cameraId);
+        PlayerPrefs.SetInt("playerId", cameraId);
 
         switch(cameraId) {
             case 0:

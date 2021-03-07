@@ -479,8 +479,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   playerId: 1
-  playerCamera: {fileID: 7524455746864409233}
-  mouseSensitivity: 1
+  cameraTransform: {fileID: 7524455746864409233}
+  mouseSensitivity: 2
   walkSpeed: 6
   moveSmoothTime: 0.03
   jumpForce: 5

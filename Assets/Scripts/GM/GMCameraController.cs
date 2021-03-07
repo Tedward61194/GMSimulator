@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class GMCameraController : MonoBehaviour {
     public Transform cameraTransform;
-    [SerializeField] int playerId;
     [SerializeField] float movementSpeed;
     [SerializeField] float movementTime;
     [SerializeField] float rotationAmount;
     [SerializeField] Vector3 zoomAmount;
+
+    public int connectionToClientId;
 
     Vector3 newPosition;
     Quaternion newRotation;
@@ -24,17 +26,27 @@ public class GMCameraController : MonoBehaviour {
         newRotation = transform.rotation;
         newZoom = cameraTransform.localPosition;
 
-        if (PlayerPrefs.GetInt("playerCamera") == playerId) {
+        //if (PlayerPrefs.GetInt("playerId") == playerId) {
+        if (transform.gameObject.GetComponent<NetworkIdentity>().connectionToClient.connectionId == connectionToClientId) {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+        } else {
+            cameraTransform.GetComponent<Camera>().enabled = false;
+            cameraTransform.GetComponent<AudioListener>().enabled = false;
         }
     }
 
     void Update() {
-        if (PlayerPrefs.GetInt("playerCamera") == playerId) {
+        //if (PlayerPrefs.GetInt("playerId") == playerId) {
+        if (transform.gameObject.GetComponent<NetworkIdentity>().connectionToClient.connectionId == connectionToClientId) {
             HandleMovementInput();
             HandleMouseInput();
-        }
+
+            cameraTransform.GetComponent<AudioListener>().enabled = false; // Test
+        }// else {
+         //cameraTransform.GetComponent<Camera>().enabled = false;
+         //cameraTransform.GetComponent<AudioListener>().enabled = false;
+         //}
     }
 
     void HandleMouseInput() {

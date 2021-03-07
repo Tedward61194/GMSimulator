@@ -5,42 +5,48 @@ using Mirror;
 
 public class PlayerController : NetworkBehaviour
 {
-    [SerializeField] float playerId;
-    //[SerializeField] Transform cameraTransform;
+    [SerializeField] Transform cameraTransform;
     [SerializeField] float mouseSensitivity;
     [SerializeField] float walkSpeed;
     [SerializeField][Range(0.0f, 0.05f)] float moveSmoothTime;
     [SerializeField] float jumpForce;
     [SerializeField] float gravity;
 
+    public int connectionToClientId;
+    
+
     float cameraPitch = 0.0f;
     float velocityY;
     CharacterController controller;
-    Transform cameraTransform;
+    private int _connectionId;
 
     Vector2 currentDir = Vector2.zero;
     Vector2 currentDirVelocity = Vector2.zero;
-
+  
     void Start()
     {
+        //NetworkIdentity networkIdentity = transform.gameObject.GetComponent<NetworkIdentity>();
         controller = GetComponent<CharacterController>();
         cameraTransform = GetComponentInChildren<Camera>().transform;
-        if (!isLocalPlayer) {
+        _connectionId = transform.gameObject.GetComponent<NetworkIdentity>().connectionToClient.connectionId;
+
+        if (_connectionId == connectionToClientId) {
+            //Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
+
+            cameraTransform.GetComponent<AudioListener>().enabled = false; // Test
+
+        } else {
             cameraTransform.GetComponent<Camera>().enabled = false;
             cameraTransform.GetComponent<AudioListener>().enabled = false;
         }
-
-        //if (PlayerPrefs.GetInt("playerCamera") == playerId) {
-        //    Cursor.lockState = CursorLockMode.Locked;
-        //    Cursor.visible = false;
-        //}
 
     }
 
     void Update()
     {
-        //if (PlayerPrefs.GetInt("playerCamera") == playerId) {
-        if (isLocalPlayer) {
+        //if (PlayerPrefs.GetInt("playerId") == playerId) {
+        if (_connectionId == connectionToClientId) {
             UpdateMouseLook();
             UpdateMovement();
         }
