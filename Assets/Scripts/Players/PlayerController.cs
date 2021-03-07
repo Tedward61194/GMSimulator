@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
+//using Mirror;
 
-public class PlayerController : NetworkBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] Transform cameraTransform;
     [SerializeField] float mouseSensitivity;
@@ -12,13 +12,13 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] float jumpForce;
     [SerializeField] float gravity;
 
-    public int connectionToClientId;
+    //public int connectionToClientId;
     
 
     float cameraPitch = 0.0f;
     float velocityY;
     CharacterController controller;
-    private int _connectionId;
+    //private int _connectionId;
 
     Vector2 currentDir = Vector2.zero;
     Vector2 currentDirVelocity = Vector2.zero;
@@ -28,28 +28,28 @@ public class PlayerController : NetworkBehaviour
         //NetworkIdentity networkIdentity = transform.gameObject.GetComponent<NetworkIdentity>();
         controller = GetComponent<CharacterController>();
         cameraTransform = GetComponentInChildren<Camera>().transform;
-        _connectionId = transform.gameObject.GetComponent<NetworkIdentity>().connectionToClient.connectionId;
+        //_connectionId = transform.gameObject.GetComponent<NetworkIdentity>().connectionToClient.connectionId;
 
-        if (_connectionId == connectionToClientId) {
+        //if (_connectionId == connectionToClientId) {
             //Cursor.lockState = CursorLockMode.Locked;
             //Cursor.visible = false;
 
-            cameraTransform.GetComponent<AudioListener>().enabled = false; // Test
+            //cameraTransform.GetComponent<AudioListener>().enabled = false; // Test
 
-        } else {
-            cameraTransform.GetComponent<Camera>().enabled = false;
-            cameraTransform.GetComponent<AudioListener>().enabled = false;
-        }
+       // } else {
+            //cameraTransform.GetComponent<Camera>().enabled = false;
+            //cameraTransform.GetComponent<AudioListener>().enabled = false;
+        //}
 
     }
 
     void Update()
     {
         //if (PlayerPrefs.GetInt("playerId") == playerId) {
-        if (_connectionId == connectionToClientId) {
+        //if (_connectionId == connectionToClientId) {
             UpdateMouseLook();
             UpdateMovement();
-        }
+        //}
     }
 
     void UpdateMouseLook() {

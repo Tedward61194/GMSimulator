@@ -6,24 +6,30 @@ using TMPro;
 using System.Linq;
 using System.Reflection;
 
-public class CharacterSelect : NetworkBehaviour
+public class NetworkPlayer : NetworkBehaviour
 {
     [SerializeField] GameObject characterSelectDisplay;
     [SerializeField] List<GameObject> characters;
 
     //GameObject parentNetworkPlayer;
 
+    [Command]
     public override void OnStartClient() {
-        if (isLocalPlayer)
-            characterSelectDisplay.SetActive(true);
+        if (isLocalPlayer) {
+            transform.Find(characters[0].name).gameObject.SetActive(true);
+            transform.Find(characters[1].name).gameObject.SetActive(false);
+            transform.Find(characters[2].name).gameObject.SetActive(false);
+
+            transform.Find(characters[0].name).GetComponent<CharacterSelect>().characters = characters;
+        }
         //parentNetworkPlayer = transform.parent.gameObject;
     }
-    public void Select(GameObject choice) {
+    /*public void Select(GameObject choice) {
         //CmdOnSelect(choice.name);
         CmdTestSelect(choice.name);
-    }
+    }*/
 
-    [Command(ignoreAuthority = true)]
+    /*[Command(ignoreAuthority = true)]
     public void CmdTestSelect(string choice, NetworkConnectionToClient sender = null) {
         List<string> characterNames = characters.Select(c => c.name).ToList();
         int index = characterNames.IndexOf(choice);
@@ -33,13 +39,13 @@ public class CharacterSelect : NetworkBehaviour
                 playerInstance.GetComponent<GMCameraController>().connectionToClientId = transform.gameObject.GetComponent<NetworkIdentity>().connectionToClient.connectionId;
                 break;
             case 1:
-                playerInstance.GetComponent<PlayerController>().connectionToClientId = transform.gameObject.GetComponent<NetworkIdentity>().connectionToClient.connectionId;
+                //playerInstance.GetComponent<PlayerController>().connectionToClientId = transform.gameObject.GetComponent<NetworkIdentity>().connectionToClient.connectionId;
                 break;
         }
 
         NetworkServer.Spawn(playerInstance, sender);
         characterSelectDisplay.SetActive(false);
-    }
+    }*/
 
 
     /*
