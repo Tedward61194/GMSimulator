@@ -10,8 +10,6 @@ public class GMCameraController : MonoBehaviour {
     [SerializeField] float rotationAmount;
     [SerializeField] Vector3 zoomAmount;
 
-    public int connectionToClientId;
-
     Vector3 newPosition;
     Quaternion newRotation;
     Vector3 newZoom;
@@ -26,8 +24,7 @@ public class GMCameraController : MonoBehaviour {
         newRotation = transform.rotation;
         newZoom = cameraTransform.localPosition;
 
-        //if (PlayerPrefs.GetInt("playerId") == playerId) {
-        if (transform.gameObject.GetComponent<NetworkIdentity>().connectionToClient.connectionId == connectionToClientId) {
+        if (GetComponentInParent<NetworkIdentity>().isLocalPlayer) {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         } else {
@@ -38,11 +35,9 @@ public class GMCameraController : MonoBehaviour {
 
     void Update() {
         //if (PlayerPrefs.GetInt("playerId") == playerId) {
-        if (transform.gameObject.GetComponent<NetworkIdentity>().connectionToClient.connectionId == connectionToClientId) {
+        if (GetComponentInParent<NetworkIdentity>().isLocalPlayer) {
             HandleMovementInput();
             HandleMouseInput();
-
-            cameraTransform.GetComponent<AudioListener>().enabled = false; // Test
         }// else {
          //cameraTransform.GetComponent<Camera>().enabled = false;
          //cameraTransform.GetComponent<AudioListener>().enabled = false;

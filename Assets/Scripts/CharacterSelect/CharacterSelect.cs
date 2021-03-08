@@ -9,11 +9,6 @@ public class CharacterSelect : NetworkBehaviour
     public List<GameObject> characters;
 
     public void Select(GameObject choice) {
-        int index = characters.IndexOf(choice);
-    }
-    
-    [Command]
-    public void CmdSelect(int choice) {
-
+        GetComponentInParent<NetworkPlayer>().CmdSelect(characters.IndexOf(choice));
     }
 }

@@ -119,12 +119,11 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4039708017615542528}
+      - m_Target: {fileID: 8769083065127201547}
         m_MethodName: Select
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 7524455747662999722, guid: 3577e0b1e357e5e47b669b2c758d7784,
-            type: 3}
+          m_ObjectArgument: {fileID: 1545540334792989983}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1065,6 +1064,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2419063543981720408}
+  - component: {fileID: 8769083065127201547}
   m_Layer: 0
   m_Name: CharacterSelect
   m_TagString: Untagged
@@ -1087,6 +1087,21 @@ Transform:
   m_Father: {fileID: 6106805511425529622}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8769083065127201547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2419063543981720407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fd82c6824c6bef42836868561ad5953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  characters: []
 --- !u!1 &2419063544007363859
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,14 +1221,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4039708017615542528}
+      - m_Target: {fileID: 8769083065127201547}
         m_MethodName: Select
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 5289015054085986768, guid: 3bbe4c8d1c2967b44b4395fa518f0507,
-            type: 3}
+          m_ObjectArgument: {fileID: 6591277508816472477}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1361,7 +1375,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  characterSelectDisplay: {fileID: 2419063543981720407}
   characters:
   - {fileID: 2419063543981720407}
   - {fileID: 6591277508816472477}
@@ -1459,8 +1472,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6591277508816472475}
   - component: {fileID: 6591277508816472476}
-  - component: {fileID: 3995020285975314429}
-  - component: {fileID: 8460770368584278396}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -1501,41 +1512,6 @@ MonoBehaviour:
   movementTime: 5
   rotationAmount: 1
   zoomAmount: {x: 0, y: -0.5, z: 0.5}
-  connectionToClientId: 0
---- !u!114 &3995020285975314429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6591277508816472477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
---- !u!114 &8460770368584278396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6591277508816472477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  clientAuthority: 0
-  localPositionSensitivity: 0.01
-  localRotationSensitivity: 0.01
-  localScaleSensitivity: 0.01
 --- !u!1 &8155371767551952642
 GameObject:
   m_ObjectHideFlags: 0

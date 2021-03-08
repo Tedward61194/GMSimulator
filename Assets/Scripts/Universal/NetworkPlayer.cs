@@ -8,22 +8,28 @@ using System.Reflection;
 
 public class NetworkPlayer : NetworkBehaviour
 {
-    [SerializeField] GameObject characterSelectDisplay;
     [SerializeField] List<GameObject> characters;
 
-    //GameObject parentNetworkPlayer;
-
-    [Command]
+    [Command(ignoreAuthority = true)]
     public override void OnStartClient() {
         if (isLocalPlayer) {
+            Debug.Log(transform.name + " is local :) ", transform);
             transform.Find(characters[0].name).gameObject.SetActive(true);
             transform.Find(characters[1].name).gameObject.SetActive(false);
             transform.Find(characters[2].name).gameObject.SetActive(false);
 
             transform.Find(characters[0].name).GetComponent<CharacterSelect>().characters = characters;
+        } else {
+            Debug.Log(transform.name + " is not local :( ", transform);
         }
-        //parentNetworkPlayer = transform.parent.gameObject;
     }
+
+    [Command]
+    public void CmdSelect(int choice) {
+        transform.Find(characters[0].name).gameObject.SetActive(false);
+        transform.Find(characters[choice].name).gameObject.SetActive(true);
+    }
+
     /*public void Select(GameObject choice) {
         //CmdOnSelect(choice.name);
         CmdTestSelect(choice.name);

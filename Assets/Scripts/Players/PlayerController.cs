@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using Mirror;
+using Mirror;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,46 +10,27 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float walkSpeed;
     [SerializeField][Range(0.0f, 0.05f)] float moveSmoothTime;
     [SerializeField] float jumpForce;
-    [SerializeField] float gravity;
-
-    //public int connectionToClientId;
-    
+    [SerializeField] float gravity; 
 
     float cameraPitch = 0.0f;
     float velocityY;
     CharacterController controller;
-    //private int _connectionId;
 
     Vector2 currentDir = Vector2.zero;
     Vector2 currentDirVelocity = Vector2.zero;
   
     void Start()
     {
-        //NetworkIdentity networkIdentity = transform.gameObject.GetComponent<NetworkIdentity>();
         controller = GetComponent<CharacterController>();
         cameraTransform = GetComponentInChildren<Camera>().transform;
-        //_connectionId = transform.gameObject.GetComponent<NetworkIdentity>().connectionToClient.connectionId;
-
-        //if (_connectionId == connectionToClientId) {
-            //Cursor.lockState = CursorLockMode.Locked;
-            //Cursor.visible = false;
-
-            //cameraTransform.GetComponent<AudioListener>().enabled = false; // Test
-
-       // } else {
-            //cameraTransform.GetComponent<Camera>().enabled = false;
-            //cameraTransform.GetComponent<AudioListener>().enabled = false;
-        //}
-
     }
 
     void Update()
     {
-        //if (PlayerPrefs.GetInt("playerId") == playerId) {
-        //if (_connectionId == connectionToClientId) {
+        if (GetComponentInParent<NetworkIdentity>().isLocalPlayer) {
             UpdateMouseLook();
             UpdateMovement();
-        //}
+        }
     }
 
     void UpdateMouseLook() {
