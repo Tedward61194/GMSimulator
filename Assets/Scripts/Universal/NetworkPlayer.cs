@@ -10,18 +10,24 @@ public class NetworkPlayer : NetworkBehaviour
 {
     [SerializeField] List<GameObject> characters;
 
-    [Command(ignoreAuthority = true)]
+    //[Command(ignoreAuthority = true)]
     public override void OnStartClient() {
         if (isLocalPlayer) {
-            Debug.Log(transform.name + " is local :) ", transform);
+            //Debug.Log(transform.name + " is local :) ", transform);
             transform.Find(characters[0].name).gameObject.SetActive(true);
             transform.Find(characters[1].name).gameObject.SetActive(false);
             transform.Find(characters[2].name).gameObject.SetActive(false);
 
             transform.Find(characters[0].name).GetComponent<CharacterSelect>().characters = characters;
         } else {
-            Debug.Log(transform.name + " is not local :( ", transform);
+            //Debug.Log(transform.name + " is not local :( ", transform);
         }
+    }
+
+    public void Select(GameObject choice) {
+        transform.Find(characters[0].name).gameObject.SetActive(false);
+        transform.Find(characters[characters.IndexOf(choice)].name).gameObject.SetActive(true);
+        CmdSelect(characters.IndexOf(choice));
     }
 
     [Command]

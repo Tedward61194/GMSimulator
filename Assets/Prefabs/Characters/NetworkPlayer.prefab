@@ -119,7 +119,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8769083065127201547}
+      - m_Target: {fileID: 4039708017615542528}
         m_MethodName: Select
         m_Mode: 2
         m_Arguments:
@@ -1221,7 +1221,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8769083065127201547}
+      - m_Target: {fileID: 4039708017615542528}
         m_MethodName: Select
         m_Mode: 2
         m_Arguments:

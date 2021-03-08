@@ -18,11 +18,14 @@ public class PlayerController : MonoBehaviour
 
     Vector2 currentDir = Vector2.zero;
     Vector2 currentDirVelocity = Vector2.zero;
-  
-    void Start()
-    {
+
+    void Start() {
         controller = GetComponent<CharacterController>();
         cameraTransform = GetComponentInChildren<Camera>().transform;
+
+        if (!GetComponentInParent<NetworkIdentity>().isLocalPlayer) {
+            cameraTransform.gameObject.SetActive(false);
+        }
     }
 
     void Update()
