@@ -1,48 +1,55 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Mirror;
 
 public class GMCameraController : MonoBehaviour {
     public Transform cameraTransform;
 
-    public float movementSpeed;
-    public float movementTime;
-    public float rotationAmount;
-    public Vector3 zoomAmount;
+    [SerializeField] float movementSpeed;
+    [SerializeField] float movementTime;
+    [SerializeField] float rotationAmount;
+    [SerializeField] Vector3 zoomAmount;
 
-    public Vector3 newPosition;
-    public Quaternion newRotation;
-    public Vector3 newZoom;
+    Vector3 newPosition;
+    Quaternion newRotation;
+    Vector3 newZoom;
 
-    public Vector3 dragStartPosition;
-    public Vector3 dragCurrentPosition;
-    public Vector3 rotateStartPosition;
-    public Vector3 rotateCurrentPosition;
+    Vector3 dragStartPosition;
+    Vector3 dragCurrentPosition;
+    Vector3 rotateStartPosition;
+    Vector3 rotateCurrentPosition;
 
-    // Start is called before the first frame update
     void Start() {
         newPosition = transform.position;
         newRotation = transform.rotation;
         newZoom = cameraTransform.localPosition;
+
+        if (GetComponentInParent<NetworkIdentity>().isLocalPlayer) {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        } else {
+            // Only allow client camera to be active
+            cameraTransform.GetComponent<Camera>().enabled = false;
+            cameraTransform.GetComponent<AudioListener>().enabled = false;
+        }
     }
 
-    // Update is called once per frame
     void Update() {
-        HandleMovementInput();
-        HandleMouseInput();
+        if (GetComponentInParent<NetworkIdentity>().isLocalPlayer) {
+            HandleMovementInput();
+            HandleMouseInput();
+        }
     }
 
     void HandleMouseInput() {
         // Mouse zoom
         if (Input.mouseScrollDelta.y != 0) {
-            newZoom += -Input.mouseScrollDelta.y * zoomAmount;
+            newZoom += Input.mouseScrollDelta.y * zoomAmount;
         }
 
         // Drag scroll
         if (Input.GetMouseButtonDown(0)) {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
             Ray ray = GameObject.FindGameObjectWithTag("GMCamera").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             float entry;
             if (plane.Raycast(ray, out entry)) {
@@ -53,7 +60,6 @@ public class GMCameraController : MonoBehaviour {
         if (Input.GetMouseButton(0)) {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
             Ray ray = GameObject.FindGameObjectWithTag("GMCamera").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             float entry;
             if (plane.Raycast(ray, out entry)) {
