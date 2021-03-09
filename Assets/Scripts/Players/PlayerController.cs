@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Mirror;
 
 public class PlayerController : MonoBehaviour
@@ -10,8 +8,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float walkSpeed;
     [SerializeField][Range(0.0f, 0.05f)] float moveSmoothTime;
     [SerializeField] float jumpForce;
-    [SerializeField] float gravity; 
+    [SerializeField] float gravity;
 
+    bool paused;
     float cameraPitch = 0.0f;
     float velocityY;
     CharacterController controller;
@@ -23,6 +22,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         cameraTransform = GetComponentInChildren<Camera>().transform;
 
+        // Only allow client camera to be active
         if (!GetComponentInParent<NetworkIdentity>().isLocalPlayer) {
             cameraTransform.gameObject.SetActive(false);
         }
@@ -31,8 +31,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (GetComponentInParent<NetworkIdentity>().isLocalPlayer) {
-            UpdateMouseLook();
-            UpdateMovement();
+            ListenForPause();
+            if (!paused) {
+                UpdateMouseLook();
+                UpdateMovement();
+            }
         }
     }
 
@@ -64,5 +67,11 @@ public class PlayerController : MonoBehaviour
 
         Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * walkSpeed + Vector3.up * velocityY;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void ListenForPause() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            paused = !paused;
+        }
     }
 }

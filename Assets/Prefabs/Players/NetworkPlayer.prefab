@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 1545540334800848207}
   m_Layer: 0
   m_Name: Player1Body
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1064,7 +1064,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2419063543981720408}
-  - component: {fileID: 8769083065127201547}
   m_Layer: 0
   m_Name: CharacterSelect
   m_TagString: Untagged
@@ -1087,21 +1086,6 @@ Transform:
   m_Father: {fileID: 6106805511425529622}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8769083065127201547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2419063543981720407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fd82c6824c6bef42836868561ad5953, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  characters: []
 --- !u!1 &2419063544007363859
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,7 +1310,7 @@ GameObject:
   - component: {fileID: 708607076479113003}
   m_Layer: 0
   m_Name: NetworkPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1378,6 +1362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  ActivePlayerIndex: 0
   characters:
   - {fileID: 2419063543981720407}
   - {fileID: 6591277508816472477}

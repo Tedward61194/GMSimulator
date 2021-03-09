@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Mirror;
 
 public class GMCameraController : MonoBehaviour {
     public Transform cameraTransform;
+
     [SerializeField] float movementSpeed;
     [SerializeField] float movementTime;
     [SerializeField] float rotationAmount;
@@ -28,20 +27,17 @@ public class GMCameraController : MonoBehaviour {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         } else {
+            // Only allow client camera to be active
             cameraTransform.GetComponent<Camera>().enabled = false;
             cameraTransform.GetComponent<AudioListener>().enabled = false;
         }
     }
 
     void Update() {
-        //if (PlayerPrefs.GetInt("playerId") == playerId) {
         if (GetComponentInParent<NetworkIdentity>().isLocalPlayer) {
             HandleMovementInput();
             HandleMouseInput();
-        }// else {
-         //cameraTransform.GetComponent<Camera>().enabled = false;
-         //cameraTransform.GetComponent<AudioListener>().enabled = false;
-         //}
+        }
     }
 
     void HandleMouseInput() {
