@@ -669,8 +669,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2209536063916349807}
-        m_MethodName: InstantiateObject
+      - m_Target: {fileID: 268451685063469993}
+        m_MethodName: SpawnGhost
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 8214185921808837697, guid: 5674444532ae43a498dfd2e610dd01b9,
@@ -693,7 +693,6 @@ GameObject:
   - component: {fileID: 2209536063916349801}
   - component: {fileID: 2209536063916349800}
   - component: {fileID: 2209536063916349803}
-  - component: {fileID: 2209536063916349807}
   m_Layer: 5
   m_Name: GMCanvas
   m_TagString: Untagged
@@ -781,18 +780,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2209536063916349807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2209536063916349802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aa23e21d19fc5e43821c48168c3f3e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2419063542751649724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1516,6 +1503,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6591277508816472475}
   - component: {fileID: 6591277508816472476}
+  - component: {fileID: 268451685063469993}
   m_Layer: 0
   m_Name: GM
   m_TagString: Untagged
@@ -1556,6 +1544,22 @@ MonoBehaviour:
   movementTime: 5
   rotationAmount: 1
   zoomAmount: {x: 0, y: -0.5, z: 0.5}
+--- !u!114 &268451685063469993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6591277508816472477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cb0c0b5b978ac84f8ed6e4ed184e02d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghosts:
+  - {fileID: 8214185921808837697, guid: 5674444532ae43a498dfd2e610dd01b9, type: 3}
+  corporealObject:
+  - {fileID: 5781867323250508062, guid: 0c450bd380c47264cbf1a5958e3825b8, type: 3}
 --- !u!1 &8155371767551952642
 GameObject:
   m_ObjectHideFlags: 0

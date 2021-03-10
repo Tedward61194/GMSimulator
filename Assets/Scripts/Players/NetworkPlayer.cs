@@ -51,4 +51,20 @@ public class NetworkPlayer : NetworkBehaviour
             player.transform.Find(characters[0].name).gameObject.SetActive(false);
         }
     }
+
+    [Command]
+    public void CmdSpawnGhost(int ghostId) {
+        var GhostCorporealKvP = GetComponentInChildren<GMSpawnableObjectManager>().GhostCorporealKvP;
+        NetworkServer.Spawn(Instantiate(GhostCorporealKvP.ElementAt(ghostId).Key), gameObject);
+    }
+
+    [Command]
+    public void CmdSpawnCorporealObject(int ghostId) {
+        var GhostCorporealKvP = GetComponentInChildren<GMSpawnableObjectManager>().GhostCorporealKvP;
+        var targetGhost = GameObject.FindGameObjectsWithTag("Ghost").Last();
+        Vector3 targetPos = targetGhost.transform.position;
+        Quaternion targetRot = targetGhost.transform.rotation;
+        GameObject corporealObject = Instantiate(GhostCorporealKvP.ElementAt(ghostId).Value, targetPos, targetRot);
+        NetworkServer.Spawn(corporealObject);
+    }
 }
