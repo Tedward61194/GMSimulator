@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5406292167517870528}
   - component: {fileID: 811645476606219897}
   - component: {fileID: 5750600105200522099}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 808456056475200995}
   - component: {fileID: 1850555363126478713}
   - component: {fileID: 2530942083265462735}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneId: 0
   serverOnly: 0
-  m_AssetId: 0c450bd380c47264cbf1a5958e3825b8
+  m_AssetId: 
   hasSpawned: 0
 --- !u!114 &2530942083265462735
 MonoBehaviour:

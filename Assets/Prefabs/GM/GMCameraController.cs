@@ -9,6 +9,8 @@ public class GMCameraController : MonoBehaviour {
     [SerializeField] float rotationAmount;
     [SerializeField] Vector3 zoomAmount;
 
+    [SerializeField] float snapDistance;
+
     Vector3 newPosition;
     Quaternion newRotation;
     Vector3 newZoom;
@@ -41,31 +43,29 @@ public class GMCameraController : MonoBehaviour {
     }
 
     void HandleMouseInput() {
+        //Plane plane = new Plane(Vector3.up, Vector3.zero);
+        //Ray ray = GameObject.FindGameObjectWithTag("GMCamera").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+        //float entry;
+
         // Mouse zoom
         if (Input.mouseScrollDelta.y != 0) {
             newZoom += Input.mouseScrollDelta.y * zoomAmount;
         }
 
         // Drag scroll
-        if (Input.GetMouseButtonDown(0)) {
-            Plane plane = new Plane(Vector3.up, Vector3.zero);
-            Ray ray = GameObject.FindGameObjectWithTag("GMCamera").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+        // Initial press
+        if (Input.GetMouseButtonDown(2)) {
 
-            float entry;
-            if (plane.Raycast(ray, out entry)) {
-                dragStartPosition = ray.GetPoint(entry);
-            }
+            //if (plane.Raycast(ray, out entry)) {
+            dragStartPosition = GetMousePos();
+            //}
         }
-
-        if (Input.GetMouseButton(0)) {
-            Plane plane = new Plane(Vector3.up, Vector3.zero);
-            Ray ray = GameObject.FindGameObjectWithTag("GMCamera").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-
-            float entry;
-            if (plane.Raycast(ray, out entry)) {
-                dragCurrentPosition = ray.GetPoint(entry);
-                newPosition = transform.position + dragStartPosition - dragCurrentPosition;
-            }
+        // Still holding button down
+        if (Input.GetMouseButton(2)) {
+            //if (plane.Raycast(ray, out entry)) {
+            dragCurrentPosition = GetMousePos();//ray.GetPoint(entry);
+            newPosition = transform.position + dragStartPosition - dragCurrentPosition;
+            //}
         }
 
         // Drag rotate
@@ -78,6 +78,11 @@ public class GMCameraController : MonoBehaviour {
             rotateStartPosition = rotateCurrentPosition;
             newRotation *= Quaternion.Euler(Vector3.up * (-difference.x / rotationAmount));
         }
+
+        // Build Wall
+        // Will likely move this to another script
+        
+
     }
 
     void HandleMovementInput() {
@@ -115,5 +120,24 @@ public class GMCameraController : MonoBehaviour {
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * movementTime);
         cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * movementTime);
+    }
+
+    public Vector3 GetMousePos() {
+        Plane plane = new Plane(Vector3.up, Vector3.zero);
+        Ray ray = GameObject.FindGameObjectWithTag("GMCamera").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit)) {
+            return hit.point;
+        }
+        return Vector3.zero;
+    }
+
+    public Vector3 SnapPosition(Vector3 origional) {
+        Vector3 snappedPos;
+        snappedPos.x = Mathf.Floor(origional.x + snapDistance);
+        snappedPos.y = Mathf.Floor(origional.y + snapDistance);
+        snappedPos.z = Mathf.Floor(origional.z + snapDistance);
+        return snappedPos;
     }
 }

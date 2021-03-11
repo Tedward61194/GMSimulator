@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 7314859425111492898}
   - component: {fileID: -7602357338518041589}
   - component: {fileID: 3292993659802035180}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube1_ghost
   m_TagString: Ghost
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneId: 0
   serverOnly: 0
-  m_AssetId: 5674444532ae43a498dfd2e610dd01b9
+  m_AssetId: 
   hasSpawned: 0
 --- !u!114 &-7602357338518041589
 MonoBehaviour:
@@ -173,4 +173,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c57826945f31054e81c2fb1051f82e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  syncMode: 0
+  syncInterval: 0.1

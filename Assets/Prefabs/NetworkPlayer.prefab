@@ -1544,6 +1544,7 @@ MonoBehaviour:
   movementTime: 5
   rotationAmount: 1
   zoomAmount: {x: 0, y: -0.5, z: 0.5}
+  snapDistance: 0.5
 --- !u!114 &268451685063469993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1556,6 +1557,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb0c0b5b978ac84f8ed6e4ed184e02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  polePrefab: {fileID: 6044877918283579767, guid: 7bcc2021b7b8edc4fad72c8e2335ee0d,
+    type: 3}
+  fencePrefab: {fileID: 6155573268773274227, guid: fa81d7d5e48732b40b63c2269393f33e,
+    type: 3}
+  fenceHeightOffset: 1.1
   ghosts:
   - {fileID: 8214185921808837697, guid: 5674444532ae43a498dfd2e610dd01b9, type: 3}
   corporealObject:
