@@ -16,9 +16,12 @@ public class GMSpawnableObjectManager : MonoBehaviour {
     [SerializeField] List<GameObject> corporealObject;
 
     GMCameraController cameraController;
-    bool ghostSpawnedFlag;
-    bool creatingFence;
+    bool ghostActiveFlag;
+    bool placingFenceFlag; // Wall creation mode entered but waiting on player input
+    bool creatingFence; // Activly dragging wall
     int activeGhostIndex;
+    GameObject activeWall;
+    GameObject activePole;
     GameObject lastPole;
 
     public void Start() {
@@ -31,16 +34,18 @@ public class GMSpawnableObjectManager : MonoBehaviour {
     }
 
     public void Update() {
-        if (ghostSpawnedFlag) {
+        if (ghostActiveFlag) {
             if (Input.GetMouseButtonDown(0)) {
                 GetComponentInParent<NetworkPlayer>().CmdSpawnCorporealObject(activeGhostIndex);
             }
             if (Input.GetKey(KeyCode.Escape)) {
-                ghostSpawnedFlag = false;
+                ghostActiveFlag = false;
             }
-        } else { // Super messy, just testing can probably merge this with basic ghost stuff soon
+        }
+
+        if (placingFenceFlag) {    
             if (Input.GetMouseButtonDown(0)) {
-                StartFence();
+                StartFence(activeWall, activePole);
             } else if(Input.GetMouseButtonUp(0)) {
                 FinishFence();
             } else {
@@ -48,25 +53,36 @@ public class GMSpawnableObjectManager : MonoBehaviour {
                     UpdateFence();
                 }
             }
+            if (Input.GetKey(KeyCode.Escape)) {
+                placingFenceFlag = false;
+            }
         }
     }
 
     public void SpawnGhost(GameObject ghost) {
         activeGhostIndex = ghosts.IndexOf(ghost);
         GetComponentInParent<NetworkPlayer>().CmdSpawnGhost(activeGhostIndex);
-        ghostSpawnedFlag = true;
+        ghostActiveFlag = true;
         
     }
-    public void StartFence() {
-        creatingFence = true;
+
+    public void CreateFence(GameObject wallParent) {
+        activeWall = wallParent.transform.Find("MainSection").gameObject;
+        activePole = wallParent.transform.Find("Pole").gameObject;
+        placingFenceFlag = true;
+    }
+
+    public void StartFence(GameObject wall, GameObject pole) {
         Vector3 startPos = cameraController.GetMousePos();
         startPos = cameraController.SnapPosition(startPos);
-        GameObject startPole = Instantiate(polePrefab, startPos, Quaternion.identity);
-        startPole.transform.position = new Vector3(startPos.x, startPos.y + fenceHeightOffset, startPos.z);
+        GameObject startPole = Instantiate(pole, startPos, Quaternion.identity);
+        startPole.transform.position = new Vector3(startPos.x, startPos.y, startPos.z);
         lastPole = startPole;
+        creatingFence = true;
     }
+
     public void FinishFence() {
-        creatingFence = false;
+        //creatingFence = false;
     }
     public void UpdateFence() {
         Vector3 current = cameraController.GetMousePos();
@@ -76,9 +92,9 @@ public class GMSpawnableObjectManager : MonoBehaviour {
         }
     }
     void createFenceSegment(Vector3 current) {
-        GameObject newPole = Instantiate(polePrefab, current, Quaternion.identity);
+        GameObject newPole = Instantiate(activePole, current, Quaternion.identity);
         Vector3 middle = Vector3.Lerp(newPole.transform.position, lastPole.transform.position, 0.5f);
-        GameObject newFence = Instantiate(fencePrefab, middle, Quaternion.identity);
+        GameObject newFence = Instantiate(activeWall, middle, Quaternion.identity);
         newFence.transform.LookAt(lastPole.transform); // Set rotation
         lastPole = newPole;
     }
