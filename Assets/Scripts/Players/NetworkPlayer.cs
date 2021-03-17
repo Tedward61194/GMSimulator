@@ -67,4 +67,14 @@ public class NetworkPlayer : NetworkBehaviour
         GameObject corporealObject = Instantiate(GhostCorporealKvP.ElementAt(ghostId).Value, targetPos, targetRot);
         NetworkServer.Spawn(corporealObject);
     }
+
+    [Command]
+    public void CmdSpawnWall(int wallId, string middleSt, string wallEndPosSt) {
+        Vector3 middle = TedsUtilities.ToVector3(middleSt);
+        Vector3 wallEndPos = TedsUtilities.ToVector3(wallEndPosSt);
+        GameObject activeWall = GetComponentInChildren<GMSpawnableObjectManager>().Walls[wallId];
+        GameObject newWall = Instantiate(activeWall, middle, Quaternion.identity);
+        NetworkServer.Spawn(newWall);
+        newWall.transform.LookAt(wallEndPos); //setRotation
+    }
 }

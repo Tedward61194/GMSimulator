@@ -1291,8 +1291,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6106805511425529622}
-  - component: {fileID: 1123101804095370278}
   - component: {fileID: 4039708017615542528}
+  - component: {fileID: 1123101804095370278}
   - component: {fileID: 1662056349362597589}
   - component: {fileID: -6977824439742086083}
   - component: {fileID: 708607076479113003}
@@ -1320,22 +1320,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1123101804095370278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3698180867841228113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!114 &4039708017615542528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1355,6 +1339,22 @@ MonoBehaviour:
   - {fileID: 2419063543981720407}
   - {fileID: 6591277508816472477}
   - {fileID: 1545540334792989983}
+--- !u!114 &1123101804095370278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3698180867841228113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!114 &1662056349362597589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1558,15 +1558,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb0c0b5b978ac84f8ed6e4ed184e02d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  polePrefab: {fileID: 6044877918283579767, guid: 7bcc2021b7b8edc4fad72c8e2335ee0d,
-    type: 3}
-  fencePrefab: {fileID: 6155573268773274227, guid: fa81d7d5e48732b40b63c2269393f33e,
-    type: 3}
-  fenceHeightOffset: 1.1
+  Walls:
+  - {fileID: 4666728336229423119, guid: 26496e8abe95cb04c8fdbed09709b623, type: 3}
   ghosts:
   - {fileID: 8214185921808837697, guid: 5674444532ae43a498dfd2e610dd01b9, type: 3}
   corporealObject:
   - {fileID: 5781867323250508062, guid: 0c450bd380c47264cbf1a5958e3825b8, type: 3}
+  walls: []
 --- !u!1 &7719661191557327681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1687,10 +1685,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 268451685063469993}
-        m_MethodName: CreateFence
+        m_MethodName: CreateWall
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 6533737329386728221, guid: 55f340bfe45e3684e82d0d0eb43d933a,
+          m_ObjectArgument: {fileID: 4666728336229423119, guid: 26496e8abe95cb04c8fdbed09709b623,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
