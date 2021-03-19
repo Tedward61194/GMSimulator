@@ -2,6 +2,7 @@
 using UnityEngine;
 using Mirror;
 using System.Linq;
+using UnityEngine.AI;
 
 public class NetworkPlayer : NetworkBehaviour
 {
@@ -9,6 +10,8 @@ public class NetworkPlayer : NetworkBehaviour
     public int ActivePlayerIndex;
 
     [SerializeField] List<GameObject> characters;
+
+    private GameObject NetworkManager;
 
     public struct NetworkPlayerNotification : NetworkMessage {
         public string childName;
@@ -21,6 +24,7 @@ public class NetworkPlayer : NetworkBehaviour
             transform.Find(characters[0].name).gameObject.SetActive(true);
             transform.Find(characters[1].name).gameObject.SetActive(false);
             transform.Find(characters[2].name).gameObject.SetActive(false);
+            NetworkManager = GameObject.FindGameObjectWithTag("NetworkManager");
         }
     }
 
@@ -66,6 +70,7 @@ public class NetworkPlayer : NetworkBehaviour
         Quaternion targetRot = targetGhost.transform.rotation;
         GameObject corporealObject = Instantiate(GhostCorporealKvP.ElementAt(ghostId).Value, targetPos, targetRot);
         NetworkServer.Spawn(corporealObject);
+        BuildNavMesh(corporealObject);
     }
 
     [Command]
@@ -76,10 +81,19 @@ public class NetworkPlayer : NetworkBehaviour
         GameObject newWall = Instantiate(activeWall, middle, Quaternion.identity);
         NetworkServer.Spawn(newWall);
         newWall.transform.LookAt(wallEndPos); //setRotation
+        BuildNavMesh(newWall);
     }
 
     [Command]
     public void CmdGMDelete(string guid) {
-        NetworkServer.Destroy(GameObject.Find(guid));
+        GameObject target = GameObject.Find(guid);
+        NetworkServer.Destroy(target);
+        BuildNavMesh(target);
+    }
+
+    private void BuildNavMesh(GameObject newObject) {
+        if (newObject.GetComponent(typeof(NavMeshObstacle)) != null) {
+            NetworkManager.GetComponent<NavMeshBaker>().BuildAllNavMeshes();
+        }
     }
 }

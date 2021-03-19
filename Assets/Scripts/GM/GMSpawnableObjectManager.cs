@@ -114,15 +114,16 @@ public class GMSpawnableObjectManager : MonoBehaviour {
 
     public void DeleteBtn() {
         deleteModeFlag = true;
+        placingWallFlag = false;
         ghostActiveFlag = false;
-        deleteModeFlag = false;
     }
 
     void Delete() {
         GameObject target = cameraController.GetObjectAtMousePosition(GMPlaceableLayer);
-        string guid = target.GetInstanceID().ToString();
-        target.name = guid;
-        GetComponentInParent<NetworkPlayer>().CmdGMDelete(guid);
+        if (target != null) {
+            string guid = target.GetInstanceID().ToString();
+            target.name = guid;
+            GetComponentInParent<NetworkPlayer>().CmdGMDelete(guid);
+        }
     }
-
 }

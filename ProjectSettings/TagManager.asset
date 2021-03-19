@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GMCamera
   - Ghost
+  - NetworkManager
   layers:
   - Default
   - TransparentFX
