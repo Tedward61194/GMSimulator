@@ -75,12 +75,15 @@ public class GMSpawnableObjectManager : MonoBehaviour {
         activeGhostIndex = ghosts.IndexOf(ghost);
         GetComponentInParent<NetworkPlayer>().CmdSpawnGhost(activeGhostIndex);
         ghostActiveFlag = true;
-        
+        placingWallFlag = false;
+        deleteModeFlag = false;
     }
 
     public void CreateWall(GameObject wallParent) {
         activeWall = wallParent;
         placingWallFlag = true;
+        ghostActiveFlag = false;
+        deleteModeFlag = false;
     }
 
     public void StartWall(GameObject wall) {
@@ -111,6 +114,8 @@ public class GMSpawnableObjectManager : MonoBehaviour {
 
     public void DeleteBtn() {
         deleteModeFlag = true;
+        ghostActiveFlag = false;
+        deleteModeFlag = false;
     }
 
     void Delete() {
