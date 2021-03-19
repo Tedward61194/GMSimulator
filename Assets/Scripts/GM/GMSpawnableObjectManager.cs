@@ -4,9 +4,9 @@ using UnityEngine;
 using System.Linq;
 
 public class GMSpawnableObjectManager : MonoBehaviour {
-
     public Dictionary<GameObject, GameObject> GhostCorporealKvP = new Dictionary<GameObject, GameObject>();
     public List<GameObject> Walls = new List<GameObject>();
+    public LayerMask GMPlaceableLayer;
 
     // Unity dosn't seem to let me setup KvPs in inspector, so this'll have to do
     [SerializeField] List<GameObject> ghosts;
@@ -74,7 +74,7 @@ public class GMSpawnableObjectManager : MonoBehaviour {
     }
 
     public void StartWall(GameObject wall) {
-        wallStartPos = cameraController.GetMousePos();
+        wallStartPos = cameraController.GetMousePosIgnoreLayer(GMPlaceableLayer);
         wallStartPos = cameraController.SnapPosition(wallStartPos);
         wallEndPos = wallStartPos;
         creatingWall = true;
@@ -83,19 +83,19 @@ public class GMSpawnableObjectManager : MonoBehaviour {
     public void FinishWall() {
         creatingWall = false;
     }
+
     public void UpdateWall() {
-        Vector3 currentPos = cameraController.GetMousePos();
+        Vector3 currentPos = cameraController.GetMousePosIgnoreLayer(GMPlaceableLayer);
         currentPos = cameraController.SnapPosition(currentPos);
         if (!currentPos.Equals(wallEndPos)) {
             createWallSegment(currentPos);
         }
     }
+
     void createWallSegment(Vector3 currentPos) {
         wallEndPos = currentPos;
         Vector3 middle = Vector3.Lerp(wallStartPos, wallEndPos, 0.5f);
         GetComponentInParent<NetworkPlayer>().CmdSpawnWall(Walls.IndexOf(activeWall), middle.ToString(), wallEndPos.ToString());
-        //GameObject newWall = Instantiate(activeWall, middle, Quaternion.identity);
-        //newWall.transform.LookAt(wallEndPos); //setRotation
         wallStartPos = wallEndPos;
     }
 

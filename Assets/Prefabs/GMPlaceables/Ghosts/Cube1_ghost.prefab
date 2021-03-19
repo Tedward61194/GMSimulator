@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7693543667214464159}
   - component: {fileID: 3062584513873689382}
   - component: {fileID: 7930218212634541612}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Cube1_ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 7314859425111492898}
   - component: {fileID: -7602357338518041589}
   - component: {fileID: 3292993659802035180}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Cube1_ghost
   m_TagString: Ghost
   m_Icon: {fileID: 0}
@@ -175,3 +175,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  GMPlaceableLayer:
+    serializedVersion: 2
+    m_Bits: 256

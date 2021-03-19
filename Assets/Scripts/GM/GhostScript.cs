@@ -4,8 +4,9 @@ using UnityEngine;
 using Mirror;
 
 public class GhostScript : NetworkBehaviour {
-    Vector3 hitPos;
+    public LayerMask GMPlaceableLayer;
 
+    Vector3 hitPos;
     RaycastHit hit;
 
     void Start()
@@ -30,7 +31,7 @@ public class GhostScript : NetworkBehaviour {
     public void UpdateMousePosition(NetworkConnection sender) {
         Ray ray = GameObject.FindGameObjectWithTag("GMCamera").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~GMPlaceableLayer)) {
             CmdRegisterHitPosition(hit.point.ToString());
         }
     }

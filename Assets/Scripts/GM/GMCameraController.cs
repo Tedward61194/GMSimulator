@@ -133,6 +133,17 @@ public class GMCameraController : MonoBehaviour {
         return Vector3.zero;
     }
 
+    public Vector3 GetMousePosIgnoreLayer(LayerMask layerToIgnore) {
+        Plane plane = new Plane(Vector3.up, Vector3.zero);
+        Ray ray = GameObject.FindGameObjectWithTag("GMCamera").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~layerToIgnore)) {
+            return hit.point;
+        }
+        return Vector3.zero;
+    }
+
     public Vector3 SnapPosition(Vector3 origional) {
         Vector3 snappedPos;
         snappedPos.x = Mathf.Floor(origional.x + snapDistance);
