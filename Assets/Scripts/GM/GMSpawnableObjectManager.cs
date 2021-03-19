@@ -22,6 +22,7 @@ public class GMSpawnableObjectManager : MonoBehaviour {
     GameObject activeWall;
     Vector3 wallStartPos;
     Vector3 wallEndPos;
+    bool deleteModeFlag;
 
     public void Start() {
         // Initialize GhostCorporealKvP
@@ -57,6 +58,15 @@ public class GMSpawnableObjectManager : MonoBehaviour {
             }
             if (Input.GetKey(KeyCode.Escape)) {
                 placingWallFlag = false;
+            }
+        }
+
+        if (deleteModeFlag) {
+            if (Input.GetMouseButtonDown(0)) {
+                Delete();
+            }
+            if (Input.GetKey(KeyCode.Escape)) {
+                deleteModeFlag = false;
             }
         }
     }
@@ -97,6 +107,17 @@ public class GMSpawnableObjectManager : MonoBehaviour {
         Vector3 middle = Vector3.Lerp(wallStartPos, wallEndPos, 0.5f);
         GetComponentInParent<NetworkPlayer>().CmdSpawnWall(Walls.IndexOf(activeWall), middle.ToString(), wallEndPos.ToString());
         wallStartPos = wallEndPos;
+    }
+
+    public void DeleteBtn() {
+        deleteModeFlag = true;
+    }
+
+    void Delete() {
+        GameObject target = cameraController.GetObjectAtMousePosition(GMPlaceableLayer);
+        string guid = target.GetInstanceID().ToString();
+        target.name = guid;
+        GetComponentInParent<NetworkPlayer>().CmdGMDelete(guid);
     }
 
 }

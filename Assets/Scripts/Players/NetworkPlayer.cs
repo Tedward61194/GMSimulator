@@ -77,4 +77,9 @@ public class NetworkPlayer : NetworkBehaviour
         NetworkServer.Spawn(newWall);
         newWall.transform.LookAt(wallEndPos); //setRotation
     }
+
+    [Command]
+    public void CmdGMDelete(string guid) {
+        NetworkServer.Destroy(GameObject.Find(guid));
+    }
 }
