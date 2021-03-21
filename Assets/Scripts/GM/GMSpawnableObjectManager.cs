@@ -11,14 +11,12 @@ public class GMSpawnableObjectManager : MonoBehaviour {
     // Unity dosn't seem to let me setup KvPs in inspector, so this'll have to do
     [SerializeField] List<GameObject> ghosts;
     [SerializeField] List<GameObject> corporealObject;
-    [SerializeField] List<GameObject> walls;
 
     GMCameraController cameraController;
     bool ghostActiveFlag;
     bool placingWallFlag; // Wall creation mode entered but waiting on player input
     bool creatingWall; // Activly dragging wall
     int activeGhostIndex;
-    int activeWallIndex;
     GameObject activeWall;
     Vector3 wallStartPos;
     Vector3 wallEndPos;
@@ -28,9 +26,6 @@ public class GMSpawnableObjectManager : MonoBehaviour {
         // Initialize GhostCorporealKvP
         for (int i = 0; i < ghosts.Count; i++) {
             GhostCorporealKvP.Add(ghosts[i], corporealObject[i]);
-        }
-        for (int i = 0; i < walls.Count; i++) {
-            Walls.Add(walls[i]);
         }
 
         cameraController = GetComponent<GMCameraController>();

@@ -48,7 +48,7 @@ public class NetworkPlayer : NetworkBehaviour
     }
 
     private void ActivateOtherPlayers() {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player").Where(p => p.GetInstanceID() != gameObject.GetInstanceID()).ToArray();
+        GameObject[] players = GameObject.FindGameObjectsWithTag("NetworkPlayer").Where(p => p.GetInstanceID() != gameObject.GetInstanceID()).ToArray();
         foreach (GameObject player in players) {
             int playerActiveIndex = player.GetComponent<NetworkPlayer>().ActivePlayerIndex;
             player.transform.Find(characters[playerActiveIndex].name).gameObject.SetActive(true);
