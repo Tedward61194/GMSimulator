@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 1545540332911413028}
   - component: {fileID: 1545540332911413030}
   - component: {fileID: 1545540332911413029}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player1Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -439,8 +439,7 @@ GameObject:
   - component: {fileID: 1545540333023987358}
   - component: {fileID: 1545540333023987361}
   - component: {fileID: 1545540333023987360}
-  - component: {fileID: 1545540333023987359}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sunglasses
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,19 +509,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1545540333023987359
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545540333023987357}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1545540334792989983
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,13 +521,13 @@ GameObject:
   - component: {fileID: 1545540334792989985}
   - component: {fileID: 1545540334792989986}
   - component: {fileID: 8950908451515751523}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1545540334792989984
 Transform:
   m_ObjectHideFlags: 0
@@ -618,8 +604,7 @@ GameObject:
   - component: {fileID: 1545540334800848206}
   - component: {fileID: 1545540334800848209}
   - component: {fileID: 1545540334800848208}
-  - component: {fileID: 1545540334800848207}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player1Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -690,20 +675,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &1545540334800848207
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545540334800848205}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2209536063075601813
 GameObject:
   m_ObjectHideFlags: 0

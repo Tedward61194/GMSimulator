@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8761404394118285046}
   - component: {fileID: 6841709901743381779}
   - component: {fileID: 2542532044350819959}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TargetCube
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,4 +108,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb16d818e201b3d43a6c3b28673dc266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100
+  maxHealth: 20
+  currentHealth: 0

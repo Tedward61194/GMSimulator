@@ -1339,8 +1339,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  attackCooldown: 5
+  attackCooldown: 3
   attackReady: 1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  attackPoint: {fileID: 1329337194167268055}
+  attackRange: 1
+  attackDamage: 10
   destination: {fileID: 0}
 --- !u!114 &5332906958180702209
 MonoBehaviour:
@@ -1354,6 +1360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542a1a9f6595c0e48b2568156bb9b895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!195 &5332906958180702268
 NavMeshAgent:
   m_ObjectHideFlags: 0
