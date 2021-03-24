@@ -76,7 +76,7 @@ public class GMCameraController : MonoBehaviour {
             rotateCurrentPosition = Input.mousePosition;
             Vector3 difference = rotateStartPosition - rotateCurrentPosition;
             rotateStartPosition = rotateCurrentPosition;
-            newRotation *= Quaternion.Euler(Vector3.up * (-difference.x / rotationAmount));
+            newRotation *= Quaternion.Euler(Vector3.up * (-difference.x * rotationAmount));
         }
 
         // Build Wall
