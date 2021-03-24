@@ -9,6 +9,7 @@ public class PlayerManagement : MonoBehaviour
 
     void Start() {
         currentHealth = maxHealth;
+        HideThirdPersonBody();
     }
 
     public void ApplyDamage(float damage) {
@@ -21,5 +22,15 @@ public class PlayerManagement : MonoBehaviour
 
     void Die() {
         Debug.Log(gameObject.name + " died");
+    }
+
+    void HideThirdPersonBody() {
+        if (transform.Find("Body") != null) {
+            GameObject body = transform.Find("Body").gameObject;
+            var bodyParts = GetComponentsInChildren<Transform>();
+            foreach (Transform bodyPart in bodyParts) {
+                bodyPart.gameObject.layer = LayerMask.NameToLayer("ThirdPersonVisible");
+            }
+        }
     }
 }

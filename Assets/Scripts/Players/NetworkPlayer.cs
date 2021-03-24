@@ -38,7 +38,9 @@ public class NetworkPlayer : NetworkBehaviour
         // Get active character of players who already spawned in
         ActivateOtherPlayers();
         // Set active player so for new player's reference
-        ActivePlayerIndex = characters.IndexOf(choice);  
+        ActivePlayerIndex = characters.IndexOf(choice);
+        // Set Network Animator
+        GetComponent<NetworkAnimator>().animator = transform.Find(characters[characters.IndexOf(choice)].name).gameObject.GetComponentInChildren<Animator>();
     }
 
     [Command]

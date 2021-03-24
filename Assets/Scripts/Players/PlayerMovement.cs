@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
             // Hide glasses
             //This name may change later/might not be applicable.
             //Should probablly be a list of objects to hide or a layer or something but it's fine for now.
-            transform.Find("Player1Body").transform.Find("Sunglasses").gameObject.SetActive(false);
+            //transform.Find("Player1Body").transform.Find("Sunglasses").gameObject.SetActive(false);
         }
     }
 

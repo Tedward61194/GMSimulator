@@ -6,7 +6,6 @@ using Mirror;
 public class RomeroAnimationStateController : NetworkBehaviour {
     Animator animator;
     private NetworkAnimator networkAnimator;
-
     void Awake()
     {
         animator = GetComponent<Animator>();
