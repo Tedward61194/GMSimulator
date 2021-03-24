@@ -534,6 +534,7 @@ GameObject:
   - component: {fileID: 1545540334792989984}
   - component: {fileID: 1545540334792989985}
   - component: {fileID: 1545540334792989986}
+  - component: {fileID: 8950908451515751523}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Player
@@ -593,6 +594,19 @@ MonoBehaviour:
   moveSmoothTime: 0.03
   jumpForce: 5
   gravity: -9.81
+--- !u!114 &8950908451515751523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545540334792989983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb16d818e201b3d43a6c3b28673dc266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
 --- !u!1 &1545540334800848205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1851,9 +1865,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 6591277508433576051}
-  movementSpeed: 0.2
+  movementSpeed: 0.05
   movementTime: 5
-  rotationAmount: 1
+  rotationAmount: 0.5
   zoomAmount: {x: 0, y: -0.5, z: 0.5}
   snapDistance: 0.5
 --- !u!114 &268451685063469993
@@ -1875,10 +1889,10 @@ MonoBehaviour:
     m_Bits: 256
   ghosts:
   - {fileID: 8214185921808837697, guid: 5674444532ae43a498dfd2e610dd01b9, type: 3}
-  - {fileID: 26891832976019457, guid: 7420ed6271ef79d4a99ceb6863cb95af, type: 3}
+  - {fileID: 2848853343826114454, guid: e742815cf347d4d45b7442f65eace1d3, type: 3}
   corporealObject:
   - {fileID: 5781867323250508062, guid: 0c450bd380c47264cbf1a5958e3825b8, type: 3}
-  - {fileID: 8045220686139159772, guid: 22d1a10967c148941971158e9a85e80d, type: 3}
+  - {fileID: 5098958022262564476, guid: dd27819f8e3965c499c1ed3f8288e85f, type: 3}
 --- !u!1 &7269245699079694786
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,7 +2019,7 @@ MonoBehaviour:
         m_MethodName: SpawnGhost
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 26891832976019457, guid: 7420ed6271ef79d4a99ceb6863cb95af,
+          m_ObjectArgument: {fileID: 2848853343826114454, guid: e742815cf347d4d45b7442f65eace1d3,
             type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
