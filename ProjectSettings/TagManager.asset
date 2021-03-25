@@ -12,14 +12,14 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Debug
   - Water
   - UI
   - Player
   - FirstPersonVisible
   - GMPlaceable
   - ThirdPersonVisible
-  - 
+  - Enemy
   - 
   - 
   - 

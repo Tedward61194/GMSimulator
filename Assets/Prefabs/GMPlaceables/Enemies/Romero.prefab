@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 8780720087318275256}
   - component: {fileID: 2936799802470981465}
   - component: {fileID: 7553332766290785895}
-  m_Layer: 8
+  m_Layer: 3
   m_Name: DamageRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1229,6 +1229,7 @@ GameObject:
   - component: {fileID: 5332906958180702215}
   - component: {fileID: 2150035937349094792}
   - component: {fileID: 5332906958180702208}
+  - component: {fileID: 2275050561825894624}
   - component: {fileID: 5332906958180702210}
   - component: {fileID: 5332906958180702209}
   - component: {fileID: 5332906958180702268}
@@ -1325,6 +1326,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2275050561825894624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5098958022262564476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 294a96c53a6b7ee46b1cd536d7f2d8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 20
+  currentHealth: 0
 --- !u!114 &5332906958180702210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1736,7 +1751,7 @@ GameObject:
   m_Component:
   - component: {fileID: 699035460131576666}
   - component: {fileID: 3473014263015027447}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,26 +1,36 @@
 ﻿using UnityEngine;
 using Mirror;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public float attackCooldown;
+    public float attackRange;
+    public float attackDamage;
+
     [SerializeField] Transform cameraTransform;
     [SerializeField] float mouseSensitivity;
     [SerializeField] float walkSpeed;
     [SerializeField][Range(0.0f, 0.05f)] float moveSmoothTime;
     [SerializeField] float jumpForce;
     [SerializeField] float gravity;
+    [SerializeField] Transform attackPoint;
+    [SerializeField] LayerMask enemyLayer;
 
     bool paused;
+    bool canRun = true;
+    bool canAttack = true;
     float cameraPitch = 0.0f;
     float velocityY;
     CharacterController controller;
-
+    PaladinAnimationStateController animationController;
     Vector2 currentDir = Vector2.zero;
     Vector2 currentDirVelocity = Vector2.zero;
 
     void Start() {
         controller = GetComponent<CharacterController>();
         cameraTransform = GetComponentInChildren<Camera>().transform;
+        animationController = GetComponent<PaladinAnimationStateController>();
 
         // Only allow client camera to be active
         if (!GetComponentInParent<NetworkIdentity>().isLocalPlayer) {
@@ -40,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
             if (!paused) {
                 UpdateMouseLook();
                 UpdateMovement();
+                ListenForAttack();
             }
         }
     }
@@ -56,9 +67,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateMovement() {
         // Inputs
-        Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        targetDir.Normalize(); // Needed to stop diagonal vector from moving at hypotenuse' magnitude
-        currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
+        if (canRun) {
+            Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            targetDir.Normalize(); // Needed to stop diagonal vector from moving at hypotenuse' magnitude
+            currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
+            if (currentDir.normalized.magnitude > 0) {
+                animationController.SetIsRunning(true);
+            } else {
+                animationController.SetIsRunning(false);
+            }
+        }
 
         // Gravity
         if (controller.isGrounded) {
@@ -78,5 +96,28 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) {
             paused = !paused;
         }
+    }
+
+    private void ListenForAttack() {
+        if (canAttack) {
+            if (Input.GetMouseButtonDown(0)) {
+                Attack();
+                StartCoroutine("AttackCooldown");
+            }
+        }
+    }
+
+    private void Attack() {
+        animationController.AttackOne();
+        Collider[] enemiesHit = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
+
+        foreach (Collider enemy in enemiesHit) {
+            enemy.GetComponent<EnemyManageger>().ApplyDamage(attackDamage);
+        }
+
+    }
+    public IEnumerator AttackCooldown() {
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
     }
 }
