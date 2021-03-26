@@ -13,9 +13,9 @@ public class NetworkPlayer : NetworkBehaviour
     [SerializeField] List<GameObject> characters;
 
     private GameObject NetworkManager;
-    private GameObject bodyToAnimate;
+    //private GameObject bodyToAnimate;
     private Animator animator;
-    private MonoBehaviour animationController;
+    //private PaladinAnimationStateController paladinAnimationController;
 
     //public delegate void TestEvent();
     //public static event TestEvent OnTestEvent;
@@ -36,6 +36,7 @@ public class NetworkPlayer : NetworkBehaviour
 
             // Delegate test
             //PlayerMovement.OnAttackOneEvent += DelegateTest;
+            //paladinAnimationController = GetComponent<PaladinAnimationStateController>();
         }
     }
 
@@ -55,29 +56,29 @@ public class NetworkPlayer : NetworkBehaviour
         // Set active player so for new player's reference
         ActivePlayerIndex = characters.IndexOf(choice);
         // Set Network Animator
-        animator = transform.Find(characters[characters.IndexOf(choice)].name).gameObject.GetComponentInChildren<Animator>();
-        GetComponent<NetworkAnimator>().animator = animator;//transform.Find(characters[characters.IndexOf(choice)].name).gameObject.GetComponentInChildren<Animator>();
+        //GetComponent<Animator>() = transform.Find(characters[characters.IndexOf(choice)].name).gameObject.GetComponentInChildren<Animator>();
+        //GetComponent<NetworkAnimator>().animator = animator;//transform.Find(characters[characters.IndexOf(choice)].name).gameObject.GetComponentInChildren<Animator>();
 
         // TODO: Make this more robust
         if (characters.IndexOf(choice) == 2) {
-            GetComponent<PaladinAnimationStateController>().Init();
-            CmdInitTest();
+            //GetComponent<PaladinAnimationStateController>().Init();
+            //CmdInitTest();
             // Players with animations must have "Body"
             //bodyToAnimate = transform.Find("Body").gameObject;
             // animationController = transform.Find(characters[characters.IndexOf(choice)].name).gameObject.GetComponent<PlayerMovement>().animationStateController;
         }
     }
 
-    [Command]
-    void CmdInitTest() {
-        GetComponent<PaladinAnimationStateController>().Init();
-    }
+    //[Command]
+    //void CmdInitTest() {
+        //GetComponent<PaladinAnimationStateController>().Init();
+    //}
 
     [Command]
     private void CmdSelect(int choice) {
         transform.Find(characters[0].name).gameObject.SetActive(false);
         transform.Find(characters[choice].name).gameObject.SetActive(true);
-        GetComponent<NetworkAnimator>().animator = transform.Find(characters[choice].name).gameObject.GetComponentInChildren<Animator>();
+//        GetComponent<NetworkAnimator>().animator = transform.Find(characters[choice].name).gameObject.GetComponentInChildren<Animator>();
     }
 
     private void ActivateOtherPlayers() {
@@ -89,7 +90,7 @@ public class NetworkPlayer : NetworkBehaviour
             player.transform.Find(characters[0].name).gameObject.SetActive(false);
 
             // Set Network Animator
-            player.GetComponent<NetworkAnimator>().animator = player.transform.Find(characters[playerActiveIndex].name).gameObject.GetComponentInChildren<Animator>();
+//            player.GetComponent<NetworkAnimator>().animator = player.transform.Find(characters[playerActiveIndex].name).gameObject.GetComponentInChildren<Animator>();
         }
     }
 
@@ -136,7 +137,7 @@ public class NetworkPlayer : NetworkBehaviour
 
     [Command]
     public void CmdSetIsRunning(bool flag) {//This should probably be more modular just trying to get animation it to work using mirror
-        GetComponent<PaladinAnimationStateController>().SetIsRunning(flag);
+        GetComponentInChildren<PaladinAnimationStateController>().SetIsRunning(flag);
     }
 
     [Command]
@@ -144,19 +145,19 @@ public class NetworkPlayer : NetworkBehaviour
         //var testTransform = transform.Find("Player1");
         //var testGameObject = testTransform.gameObject;
         //var testPlayerMovement = testGameObject.GetComponent<PlayerMovement>();
-        GetComponent<PaladinAnimationStateController>().AttackOne();
+        GetComponentInChildren<PaladinAnimationStateController>().AttackOne();
 //        testPlayerMovement.AttackOne();
     }
 
     //[Command]
-    public void CmdSetAnimationDependancies(string bodyName, string controllerName) {
+  //  public void CmdSetAnimationDependancies(string bodyName, string controllerName) {
         //bodyToAnimate = transform.Find(bodyName).gameObject;
-        var test = transform.Find("Body");
-        var test2 = test.gameObject;
-        animationController = bodyToAnimate.GetComponent("controllerName") as MonoBehaviour;
+   //     var test = transform.Find("Body");
+     //   var test2 = test.gameObject;
+   //     animationController = bodyToAnimate.GetComponent("controllerName") as MonoBehaviour;
         //PlayerMovement.OnAttackOneEvent += AttackOneEvent;
         //        GetComponentInChildren<PaladinAnimationStateController>().Invoke("AttackOne");
-    }
+  //  }
 
     [Command]
     public void CmdCallAnimationOnServer(string animationInformation) {
