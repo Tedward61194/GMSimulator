@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Mirror;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -23,29 +24,31 @@ public class PlayerMovement : MonoBehaviour
     float cameraPitch = 0.0f;
     float velocityY;
     CharacterController controller;
-    PaladinAnimationStateController animationController;
     Vector2 currentDir = Vector2.zero;
     Vector2 currentDirVelocity = Vector2.zero;
+    NetworkPlayer networkPlayer;
+
+    
+
+    // Events
+    public delegate void AttackOneEvent();
+    public static event AttackOneEvent OnAttackOneEvent;
 
     void Start() {
         controller = GetComponent<CharacterController>();
         cameraTransform = GetComponentInChildren<Camera>().transform;
-        animationController = GetComponent<PaladinAnimationStateController>();
+        networkPlayer = GetComponentInParent<NetworkPlayer>();
 
-        // Only allow client camera to be active
-        if (!GetComponentInParent<NetworkIdentity>().isLocalPlayer) {
-            cameraTransform.gameObject.SetActive(false);
+        if (networkPlayer.isLocalPlayer) {
         } else {
-            // Hide glasses
-            //This name may change later/might not be applicable.
-            //Should probablly be a list of objects to hide or a layer or something but it's fine for now.
-            //transform.Find("Player1Body").transform.Find("Sunglasses").gameObject.SetActive(false);
+            // Only allow client camera to be active
+            cameraTransform.gameObject.SetActive(false);
         }
     }
 
     void Update()
     {
-        if (GetComponentInParent<NetworkIdentity>().isLocalPlayer) {
+        if (networkPlayer.isLocalPlayer) {
             ListenForPause();
             if (!paused) {
                 UpdateMouseLook();
@@ -72,9 +75,11 @@ public class PlayerMovement : MonoBehaviour
             targetDir.Normalize(); // Needed to stop diagonal vector from moving at hypotenuse' magnitude
             currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
             if (currentDir.normalized.magnitude > 0) {
-                animationController.SetIsRunning(true);
+                //animationController.SetIsRunning(true);
+                networkPlayer.CmdSetIsRunning(true);
             } else {
-                animationController.SetIsRunning(false);
+                //animationController.SetIsRunning(false);
+                networkPlayer.CmdSetIsRunning(false);
             }
         }
 
@@ -101,14 +106,15 @@ public class PlayerMovement : MonoBehaviour
     private void ListenForAttack() {
         if (canAttack) {
             if (Input.GetMouseButtonDown(0)) {
-                Attack();
+                // Maybe I can make this more modular?
+                networkPlayer.CmdAttackOne();
                 StartCoroutine("AttackCooldown");
             }
         }
     }
 
-    private void Attack() {
-        animationController.AttackOne();
+    public void AttackOne() {
+        //animationController.AttackOne();
         Collider[] enemiesHit = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
 
         foreach (Collider enemy in enemiesHit) {
@@ -119,5 +125,17 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator AttackCooldown() {
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
+    }
+
+    public void AnimationTest() {
+        var dataObject = new AnimationInformation() {
+            targetObj = "Player1",
+            targetScript = "PlayerMovement",
+            methodToCall = "AttackOne",
+            parameters = null
+        };
+
+        string dataString = JsonUtility.ToJson(dataObject);
+        networkPlayer.CmdCallAnimationOnServer(dataString);
     }
 }

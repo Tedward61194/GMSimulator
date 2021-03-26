@@ -440,14 +440,13 @@ GameObject:
   - component: {fileID: 1545540334792989985}
   - component: {fileID: 8950908451515751523}
   - component: {fileID: 1545540334792989986}
-  - component: {fileID: 3861953225713922035}
   m_Layer: 6
   m_Name: Player1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1545540334792989984
 Transform:
   m_ObjectHideFlags: 0
@@ -522,18 +521,6 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1024
---- !u!114 &3861953225713922035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545540334792989983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d2fba58dbd7cb04ab4aba46d7ba83ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2209536063075601813
 GameObject:
   m_ObjectHideFlags: 0
@@ -1547,6 +1534,7 @@ GameObject:
   - component: {fileID: -6977824439742086083}
   - component: {fileID: 7765539664851401324}
   - component: {fileID: 3790116007997518011}
+  - component: {fileID: 5869956681320183850}
   m_Layer: 0
   m_Name: NetworkPlayer
   m_TagString: NetworkPlayer
@@ -1697,6 +1685,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5869956681320183850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3698180867841228113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2fba58dbd7cb04ab4aba46d7ba83ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyToAnimate: {fileID: 7718928742239011320}
 --- !u!1 &6591277508319744004
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,10 +4,16 @@ using UnityEngine;
 using Mirror;
 
 public class PaladinAnimationStateController : MonoBehaviour {
+    [SerializeField] GameObject bodyToAnimate;
+
+    NetworkPlayer networkPlayer;
+    NetworkAnimator networkAnimator;
     Animator animator;
 
-    void Awake() {
-        animator = GetComponentInChildren<Animator>();
+    public void Init() {
+        networkPlayer = GetComponentInParent<NetworkPlayer>();
+        networkAnimator = GetComponent<NetworkAnimator>();
+        animator = networkAnimator.animator;
     }
 
     public void SetIsRunning(bool value) {
@@ -15,6 +21,6 @@ public class PaladinAnimationStateController : MonoBehaviour {
     }
 
     public void AttackOne() {
-        GetComponentInParent<NetworkAnimator>().SetTrigger("attackOneTrigger");
+        networkAnimator.SetTrigger("attackOneTrigger");
     }
 }
