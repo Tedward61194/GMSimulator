@@ -28,12 +28,6 @@ public class PlayerMovement : MonoBehaviour
     Vector2 currentDirVelocity = Vector2.zero;
     NetworkPlayer networkPlayer;
 
-    
-
-    // Events
-    public delegate void AttackOneEvent();
-    public static event AttackOneEvent OnAttackOneEvent;
-
     void Start() {
         controller = GetComponent<CharacterController>();
         cameraTransform = GetComponentInChildren<Camera>().transform;
@@ -75,10 +69,8 @@ public class PlayerMovement : MonoBehaviour
             targetDir.Normalize(); // Needed to stop diagonal vector from moving at hypotenuse' magnitude
             currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
             if (currentDir.normalized.magnitude > 0) {
-                //animationController.SetIsRunning(true);
                 networkPlayer.CmdSetIsRunning(true);
             } else {
-                //animationController.SetIsRunning(false);
                 networkPlayer.CmdSetIsRunning(false);
             }
         }
@@ -125,17 +117,5 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator AttackCooldown() {
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
-    }
-
-    public void AnimationTest() {
-        var dataObject = new AnimationInformation() {
-            targetObj = "Player1",
-            targetScript = "PlayerMovement",
-            methodToCall = "AttackOne",
-            parameters = null
-        };
-
-        string dataString = JsonUtility.ToJson(dataObject);
-        networkPlayer.CmdCallAnimationOnServer(dataString);
     }
 }

@@ -4,16 +4,14 @@ using UnityEngine;
 using Mirror;
 
 public class PaladinAnimationStateController : MonoBehaviour {
-    [SerializeField] GameObject bodyToAnimate;
-
     NetworkPlayer networkPlayer;
     NetworkAnimator networkAnimator;
     Animator animator;
 
-    public void Init() {
-        networkPlayer = GetComponentInParent<NetworkPlayer>();
+    public void Start() {
+        networkPlayer = GetComponent<NetworkPlayer>();
         networkAnimator = GetComponent<NetworkAnimator>();
-        animator = networkAnimator.animator;
+        animator = GetComponent<Animator>();
     }
 
     public void SetIsRunning(bool value) {
