@@ -8,10 +8,6 @@ public class EnemyController1 : NetworkBehaviour
 {
     public float attackCooldown;
     public bool attackReady = true;
-    public LayerMask playerLayer;
-    public Transform attackPoint;
-    public float attackRange;
-    public float attackDamage;
 
     [SerializeField] Transform destination;
 
@@ -66,22 +62,13 @@ public class EnemyController1 : NetworkBehaviour
             animationController.IsWalking();
         }
     }
-    
+
     private void Attack() {
         // Play attack animation
         animationController.Attack();
         attackReady = false;
         StartCoroutine("AttackCooldown");
-
-        // Detect players in range
-        Collider[] playersHit = Physics.OverlapSphere(attackPoint.position, attackRange, playerLayer);
-
-        // Apply Damage
-        foreach (Collider player in playersHit) {
-            player.GetComponent<PlayerManagement>().ApplyDamage(attackDamage);
-        }
     }
-
     public IEnumerator AttackCooldown() {
         yield return new WaitForSeconds(attackCooldown);
         attackReady = true;

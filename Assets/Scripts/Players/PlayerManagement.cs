@@ -4,24 +4,8 @@ using UnityEngine;
 
 public class PlayerManagement : MonoBehaviour
 {
-    public float maxHealth;
-    public float currentHealth;
-
     void Start() {
-        currentHealth = maxHealth;
         HideThirdPersonBody();
-    }
-
-    public void ApplyDamage(float damage) {
-        currentHealth -= damage;
-
-        if (currentHealth <= 0) {
-            Die();
-        }
-    }
-
-    void Die() {
-        Debug.Log(gameObject.name + " died");
     }
 
     void HideThirdPersonBody() {
