@@ -21,4 +21,8 @@ public class PaladinAnimationStateController : MonoBehaviour {
     public void AttackOne() {
         networkAnimator.SetTrigger("attackOneTrigger");
     }
+
+    public void Die() {
+        networkAnimator.SetTrigger("dieTrigger");
+    }
 }

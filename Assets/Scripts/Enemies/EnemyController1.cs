@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Mirror;
 
-public class EnemyController1 : NetworkBehaviour
-{
+public class EnemyController1 : NetworkBehaviour, ICharacterController {
     public float attackCooldown;
     public bool attackReady = true;
 
@@ -17,6 +16,9 @@ public class EnemyController1 : NetworkBehaviour
 
     void Start()
     {
+        // Initialize this script as controller in StatusManager
+        GetComponentInParent<StatusManager>().controllerScript = this.GetComponent<EnemyController1>();
+
         navMeshAgent = this.GetComponent<NavMeshAgent>();
         animationController = GetComponent<RomeroAnimationStateController>();
         networkIdentity = GetComponentInParent<NetworkIdentity>();
@@ -72,5 +74,9 @@ public class EnemyController1 : NetworkBehaviour
     public IEnumerator AttackCooldown() {
         yield return new WaitForSeconds(attackCooldown);
         attackReady = true;
+    }
+
+    public void Die() {
+        animationController.Die();
     }
 }

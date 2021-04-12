@@ -7,6 +7,7 @@ public class StatusManager : MonoBehaviour
 {
     public float maxHealth;
     public float currentHealth;
+    public ICharacterController controllerScript;
 
     void Start()
     {
@@ -21,6 +22,10 @@ public class StatusManager : MonoBehaviour
         }
     }
     void Die() {
-        Debug.Log(gameObject.name + " died");
+        if (controllerScript != null) {
+            Debug.Log(gameObject.name + " died");
+            controllerScript.Die();
+        }
+        
     }
 }

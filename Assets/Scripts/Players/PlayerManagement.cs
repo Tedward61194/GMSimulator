@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManagement : MonoBehaviour
-{
+public class PlayerManagement : MonoBehaviour, ICharacterController {
+
+    public PaladinAnimationStateController animationController;
+
     void Start() {
+        // Initialize this script as controller in StatusManager
+        GetComponentInParent<StatusManager>().controllerScript = this.GetComponent<PlayerManagement>();
+
+        animationController = GetComponentInParent<PaladinAnimationStateController>();
         HideThirdPersonBody();
     }
 
@@ -16,5 +22,9 @@ public class PlayerManagement : MonoBehaviour
                 bodyPart.gameObject.layer = LayerMask.NameToLayer("ThirdPersonVisible");
             }
         }
+    }
+
+    public void Die() {
+        animationController.Die();
     }
 }

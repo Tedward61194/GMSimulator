@@ -23,4 +23,8 @@ public class RomeroAnimationStateController : NetworkBehaviour {
     public void Attack() {
         networkAnimator.SetTrigger("isAttacking");
     }
+
+    public void Die() {
+        networkAnimator.SetTrigger("isDying");
+    }
 }

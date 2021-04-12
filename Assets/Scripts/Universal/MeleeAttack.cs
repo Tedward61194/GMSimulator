@@ -8,7 +8,8 @@ public class MeleeAttack : MonoBehaviour {
     public float attackDamage;
 
     private void OnTriggerEnter(Collider other) {
-        if (1 << other.gameObject.layer == targetableLayer.value) { // Layers use bitshifting for performance reasons
+        // Layers use bitshifting for performance reasons (currently, there seems to be issues with multiple layers)
+        if (1 << other.gameObject.layer == targetableLayer.value) {
             // Apply Damage
             Debug.Log(targetableLayer.ToString() + "Hit!");
             other.transform.root.GetComponent<StatusManager>().ApplyDamage(attackDamage);
