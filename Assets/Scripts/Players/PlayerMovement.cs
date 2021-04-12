@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void AttackOne() {
+/*    public void AttackOne() {
         //animationController.AttackOne();
         Collider[] enemiesHit = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
 
@@ -113,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
             enemy.GetComponent<EnemyManageger>().ApplyDamage(attackDamage);
         }
 
-    }
+    }*/
     public IEnumerator AttackCooldown() {
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;

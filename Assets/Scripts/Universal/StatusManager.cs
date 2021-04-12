@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Should this all be handled server side?
 public class StatusManager : MonoBehaviour
 {
     public float maxHealth;

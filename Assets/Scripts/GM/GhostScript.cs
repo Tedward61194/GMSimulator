@@ -30,8 +30,7 @@ public class GhostScript : NetworkBehaviour {
 
     public void UpdateMousePosition(NetworkConnection sender) {
         Ray ray = GameObject.FindGameObjectWithTag("GMCamera").GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~GMPlaceableLayer)) {
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~GMPlaceableLayer)) { // ~ inverts bitmask, makes raycast select everything except for layer
             CmdRegisterHitPosition(hit.point.ToString());
         }
     }

@@ -479,6 +479,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TargetCube
       objectReference: {fileID: 0}
+    - target: {fileID: 2505030448994411074, guid: 1bef58d6209f43242831a1253b969778,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6841709901743381779, guid: 1bef58d6209f43242831a1253b969778,
         type: 3}
       propertyPath: m_IsTrigger

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class MeleeAttack : MonoBehaviour {
     public LayerMask targetableLayer;
-    public SphereCollider attackCollider;
+    public Collider attackCollider;
     public float attackDamage;
 
     private void OnTriggerEnter(Collider other) {
         if (1 << other.gameObject.layer == targetableLayer.value) { // Layers use bitshifting for performance reasons
             // Apply Damage
             Debug.Log(targetableLayer.ToString() + "Hit!");
-            other.gameObject.GetComponent<StatusManager>().ApplyDamage(attackDamage);
+            other.transform.root.GetComponent<StatusManager>().ApplyDamage(attackDamage);
         }
     }
 }
