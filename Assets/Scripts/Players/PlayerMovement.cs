@@ -105,15 +105,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-/*    public void AttackOne() {
-        //animationController.AttackOne();
-        Collider[] enemiesHit = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayer);
-
-        foreach (Collider enemy in enemiesHit) {
-            enemy.GetComponent<EnemyManageger>().ApplyDamage(attackDamage);
-        }
-
-    }*/
     public IEnumerator AttackCooldown() {
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
